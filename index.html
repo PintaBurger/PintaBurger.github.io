@@ -292,7 +292,7 @@ function registrarGiro() {
   localStorage.setItem("ultimaFechaGiro", new Date().toISOString());
 }
 
-function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 40) {
+function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 45) {
   const clickSound = document.getElementById("click-sound");
   let clicActual = 0;
 
@@ -302,9 +302,10 @@ function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 40) {
     clickSound.currentTime = 0;
     clickSound.play();
 
-    // Efecto de aceleración y desaceleración
     const progreso = clicActual / cantidadClics;
-    const delay = 50 + Math.pow(progreso, 2) * 150; // empieza rápido, termina lento
+
+    // Efecto de aceleración y desaceleración más suave
+    const delay = 30 + Math.sin(progreso * Math.PI) * 170;
 
     clicActual++;
     setTimeout(reproducirClic, delay);
