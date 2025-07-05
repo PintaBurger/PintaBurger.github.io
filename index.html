@@ -235,7 +235,7 @@ main {
 </head>
 <body>
   <div class="fondo-overlay"></div>
-<audio id="ruleta-sound" src="ruleta.mp3" preload="auto"></audio>
+<audio id="click-sound" src="click.mp3" preload="auto"></audio>
   <div class="titulo-wrapper">
   <h1 class="titulo-principal">Pinta Burger 🍔</h1>
   <h2 class="titulo">🎯 ¡Girá la Ruleta y Ganá!</h2>
@@ -277,15 +277,6 @@ main {
     const spinBtn = document.getElementById("spin");
     const resultDiv = document.getElementById("result");
 
-    const sonidoRuleta = document.getElementById("ruleta-sound");
-    // Al iniciar el giro
-sonidoRuleta.currentTime = 0;
-sonidoRuleta.play();
-
-// Al terminar el giro
-sonidoRuleta.pause();
-sonidoRuleta.currentTime = 0;
-
 function puedeGirar() {
   const ultimaFecha = localStorage.getItem("ultimaFechaGiro");
   if (!ultimaFecha) return true;
@@ -301,6 +292,27 @@ function registrarGiro() {
   localStorage.setItem("ultimaFechaGiro", new Date().toISOString());
 }
 
+function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 40) {
+  const clickSound = document.getElementById("click-sound");
+  let clicActual = 0;
+
+  function reproducirClic() {
+    if (clicActual >= cantidadClics) return;
+
+    clickSound.currentTime = 0;
+    clickSound.play();
+
+    // Efecto de aceleración y desaceleración
+    const progreso = clicActual / cantidadClics;
+    const delay = 50 + Math.pow(progreso, 2) * 150; // empieza rápido, termina lento
+
+    clicActual++;
+    setTimeout(reproducirClic, delay);
+  }
+
+  reproducirClic();
+}
+    
     function getRandomPrizeIndex() {
   const rand = Math.random() * 100;
   let cumulative = 0;
@@ -341,12 +353,10 @@ function registrarGiro() {
     return;
   }
 
+      
   registrarGiro(); // Guarda la fecha actual
 
-  // Sonido
-  const sonidoRuleta = document.getElementById("ruleta-sound");
-  sonidoRuleta.currentTime = 0;
-  sonidoRuleta.play();
+        reproducirClicsRuleta();
 
   resultDiv.classList.remove("mostrar");
   spinBtn.disabled = true;
@@ -402,8 +412,6 @@ function registrarGiro() {
         if (reboundProgress < 1) {
           requestAnimationFrame(rebound);
         } else {
-          sonidoRuleta.pause();
-          sonidoRuleta.currentTime = 0;
 
           resultDiv.textContent = `🎉 ¡Ganaste: ${prizes[index]}!`;
           resultDiv.classList.add("mostrar");
