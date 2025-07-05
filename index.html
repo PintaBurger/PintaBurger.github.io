@@ -65,26 +65,29 @@
   animation: aparecer 1.2s ease-in-out;
 }
 
-    .firma {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
+   .contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.firma {
   text-align: center;
   font-size: 14px;
   color: #ffffffaa;
   font-family: 'Arial', sans-serif;
-  z-index: 2;
+  padding: 10px 0;
 }
 
 .firma a {
-  color: inherit;         /* Usa el mismo color que el texto */
-  text-decoration: none;  /* Quita el subrayado */
-  font-weight: normal;
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
 .firma a:hover {
-  text-decoration: underline; /* Opcional: subrayado al pasar el mouse */
+  text-decoration: underline;
 }
     
     @keyframes aparecer {
