@@ -235,10 +235,11 @@ main {
 </head>
 <body>
   <div class="fondo-overlay"></div>
-
+<audio id="ruleta-sound" src="ruleta.mp3" preload="auto"></audio>
   <div class="titulo-wrapper">
   <h1 class="titulo-principal">Pinta Burger 🍔</h1>
   <h2 class="titulo">🎯 ¡Girá la Ruleta y Ganá!</h2>
+  
 </div>
 
   <main>
@@ -275,6 +276,15 @@ main {
     const ctx = canvas.getContext("2d");
     const spinBtn = document.getElementById("spin");
     const resultDiv = document.getElementById("result");
+
+    const sonidoRuleta = document.getElementById("ruleta-sound");
+    // Al iniciar el giro
+sonidoRuleta.currentTime = 0;
+sonidoRuleta.play();
+
+// Al terminar el giro
+sonidoRuleta.pause();
+sonidoRuleta.currentTime = 0;
 
 function puedeGirar() {
   const ultimaFecha = localStorage.getItem("ultimaFechaGiro");
@@ -326,22 +336,18 @@ function registrarGiro() {
     }
 
     function spinWheel() {
-
   if (!puedeGirar()) {
     alert("Ya participaste esta semana. ¡Volvé la próxima!");
     return;
   }
 
   registrarGiro(); // Guarda la fecha actual
-  resultDiv.classList.remove("mostrar");
-  spinBtn.disabled = true;
-  // ... el resto de tu función sigue igual
 
-         if (localStorage.getItem("ruletaGirada") === "true") {
-    alert("Ya giraste la ruleta. ¡Gracias por participar!");
-    return;
-  }
-  localStorage.setItem("ruletaGirada", "true");
+  // Sonido
+  const sonidoRuleta = document.getElementById("ruleta-sound");
+  sonidoRuleta.currentTime = 0;
+  sonidoRuleta.play();
+
   resultDiv.classList.remove("mostrar");
   spinBtn.disabled = true;
 
@@ -349,7 +355,7 @@ function registrarGiro() {
   const segmentAngle = 360 / prizes.length;
   const targetAngle = 360 - (index * segmentAngle + segmentAngle / 2);
   const baseRotation = 360 * 5;
-  const overshoot = 15; // cuánto se pasa para luego rebotar
+  const overshoot = 15;
   const totalRotation = baseRotation + targetAngle + overshoot;
 
   const duration = 5000;
@@ -359,7 +365,6 @@ function registrarGiro() {
   function animate(now) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
-
     const easeOut = 1 - Math.pow(1 - progress, 3);
     const currentRotation = easeOut * totalRotation;
 
@@ -376,7 +381,7 @@ function registrarGiro() {
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
-      // Rebote hacia atrás
+      // Rebote
       const reboundStart = performance.now();
       function rebound(now2) {
         const reboundElapsed = now2 - reboundStart;
@@ -397,6 +402,9 @@ function registrarGiro() {
         if (reboundProgress < 1) {
           requestAnimationFrame(rebound);
         } else {
+          sonidoRuleta.pause();
+          sonidoRuleta.currentTime = 0;
+
           resultDiv.textContent = `🎉 ¡Ganaste: ${prizes[index]}!`;
           resultDiv.classList.add("mostrar");
           spinBtn.disabled = false;
