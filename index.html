@@ -11,19 +11,16 @@
 
     body {
   margin: 0;
+  padding: 0;
+  height: 100%;
   font-family: 'Segoe UI', sans-serif;
   color: #fff;
-  min-height: 100vh;
   background-image: url('fondo-ruleta.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 👈 distribuye contenido y firma */
-  align-items: center;
-  overflow: hidden;
-  position: relative;
 }
 
     .fondo-overlay {
@@ -71,7 +68,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  overflow: hidden;
 }
 
 .firma {
