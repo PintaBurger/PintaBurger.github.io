@@ -64,6 +64,29 @@
   margin: 10px 0 0 0;
   animation: aparecer 1.2s ease-in-out;
 }
+
+    .firma {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #ffffffaa;
+  font-family: 'Arial', sans-serif;
+  z-index: 2;
+}
+
+.firma a {
+  color: inherit;         /* Usa el mismo color que el texto */
+  text-decoration: none;  /* Quita el subrayado */
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.firma a:hover {
+  text-decoration: underline; /* Opcional: subrayado al pasar el mouse */
+}
+    
     @keyframes aparecer {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -428,6 +451,9 @@ function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 50) {
 
     drawWheel();
     spinBtn.addEventListener("click", spinWheel);
+     <footer class="firma">
+    Hecho con 🍔 por <a href="https://instagram.com/lautaro.dev" target="_blank">@lautaro.dev</a>
+  </footer>
   </script>
 </body>
 </html>
