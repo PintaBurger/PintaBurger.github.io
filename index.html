@@ -10,21 +10,21 @@
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      min-height: 100vh;
-      background-image: url('fondo-ruleta.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  background-image: url('fondo-ruleta.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 👈 distribuye contenido arriba y firma abajo */
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
 
     .fondo-overlay {
       position: absolute;
@@ -70,6 +70,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* 👈 mantiene la ruleta centrada */
+  width: 100%;
 }
 
 .firma {
@@ -78,6 +80,7 @@
   color: #ffffffaa;
   font-family: 'Arial', sans-serif;
   padding: 10px 0;
+  width: 100%;
 }
 
 .firma a {
