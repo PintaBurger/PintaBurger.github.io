@@ -292,27 +292,20 @@ function registrarGiro() {
   localStorage.setItem("ultimaFechaGiro", new Date().toISOString());
 }
 
-function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 45) {
+function reproducirClicsRuleta(duracionTotal = 5000, cantidadClics = 50) {
   const clickSound = document.getElementById("click-sound");
-  let clicActual = 0;
 
-  function reproducirClic() {
-    if (clicActual >= cantidadClics) return;
+  for (let i = 0; i < cantidadClics; i++) {
+    const progreso = i / cantidadClics;
 
-    clickSound.currentTime = 0;
-    clickSound.play();
+    // Distribución de tiempo: rápido al principio, lento al final
+    const delay = Math.sin(progreso * Math.PI / 2) * duracionTotal;
 
-    const progreso = clicActual / cantidadClics;
-
-    // Efecto de aceleración y desaceleración más suave
-    const delay = 30 + Math.sin(progreso * Math.PI) * 170;
-
-    clicActual++;
-    setTimeout(reproducirClic, delay);
+    setTimeout(() => {
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }, delay);
   }
-
-  reproducirClic();
-}
     
     function getRandomPrizeIndex() {
   const rand = Math.random() * 100;
